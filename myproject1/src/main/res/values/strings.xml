@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Myproject1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_aboutus">About Us</string>
+    <string name="sorting">Select</string>
+
+ <string name="popular">Most Popular</string>
+    <string name="highest">highest Rated</string>
+
+    <string name="detail">Detail Activity</string>
+
+    <string-array name="sort">
+      <item>Most Popular</item>
+      <item>Highest Rated</item>
+      <item>My Favorite</item>
+
+
+  </string-array>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_my_favourite">MyFavouriteActivity</string>
+     <string name="share">Share</string>
+
+
+
+</resources>
