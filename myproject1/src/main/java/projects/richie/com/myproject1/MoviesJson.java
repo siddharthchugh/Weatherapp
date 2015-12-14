@@ -12,27 +12,30 @@ import java.util.List;
  */
 public class MoviesJson {
 
+
     public static List<InfoMoview> parseFeed(String content) {
 
-
+         InfoMoview list;
 
         try {
             JSONObject ob = new JSONObject(content);
+            list = new InfoMoview();
+            list.setPage(ob.getInt("page"));
+//   ob.getInt(getPage());
+
             JSONArray ar = ob.getJSONArray("results");//new JSONArray(content);
             List<InfoMoview> movieList = new ArrayList<>();
 
             for (int i = 0; i < ar.length(); i++) {
 
                JSONObject obj = ar.getJSONObject(i);
-                InfoMoview list = new InfoMoview();
-
-                list.setMovieID(obj.getInt("id"));
-
-                list.setMoviewName(obj.getString("poster_path"));
-                list.setMoviewName(obj.getString("title"));
+                list.setMoviewName(obj.getString("original_title"));
+/*
+               list.setMoviewName(obj.getString("poster_path"));
+*/
+//                list.setMoviewName(obj.getString("title"));
 
                 movieList.add(list);
-
 
             }
             return movieList;
@@ -55,7 +58,7 @@ public class MoviesJson {
           //  for (int i = 0; i < ob.length(); i++) {
               //  JSONObject obj = ob.getJSONObject(i);
                 InfoMoview list = new InfoMoview();
-//               list.setMovieID(ob.getInt("id"));
+               list.setMovieID(ob.getString("id"));
                 list.setMoviewName(ob.getString("title"));
           //  list.setDetail(ob.getString("overview"));
 

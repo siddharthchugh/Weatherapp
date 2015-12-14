@@ -6,11 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
     private int id;
     InfoMoview in;
     List<InfoMoview> info;
-    private final String URL_MOVIE_LINK="http://api.themoviedb.org/3/discover/movie?api_key=8ab57b43e21f9bae201c7c686efee010";
+//    private final String URL_MOVIE_LINK="http://api.themoviedb.org/3/discover/movie?api_key=8ab57b43e21f9bae201c7c686efee010";
 
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
@@ -56,9 +53,9 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
      * @return The View for the position in the AdapterView.
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
-        InfoMoview androidFlavor = getItem(position);
+        final InfoMoview androidFlavor = getItem(position);
 
         // Adapters recycle views to AdapterViews.
         // If this is a new View object we're getting, then inflate the layout.
@@ -69,21 +66,19 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
         }
         in = info.get(position);
 
-  ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
+ /* ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
         Picasso.with(con)
                 .load("http://image.tmdb.org/t/p/w180/"+in.getMovieImages())
                 .into(iconView);
 
-//        Picasso.with(con).load("http://image.tmdb.org/t/p/w500/&api_key=8ab57b43e21f9bae201c7c686efee010").into(iconView);
-
-
-
+*/
 
          name = (TextView) convertView.findViewById(R.id.list_item_version_name);
         name.setText(in.getMoviewName());
-
+/*
         id_movie = (TextView) convertView.findViewById(R.id.list_item_versionnumber_textview);
-        id_movie.setText(String.valueOf(in.getMovieID()));
+        id_movie.setText((in.getMovieID()));
+*/
 
 /*
         movieLayout = (LinearLayout)convertView.findViewById(R.id.itemlayout);
@@ -92,9 +87,11 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
             public void onClick(View view) {
 
 
-                int weatherItem = Integer.parseInt(id_movie.toString());
+//                String msg = String.valueOf(gridView.getCount());
+                //  vCount.setText(msg);
+
                 Intent d_Intent = new Intent(getContext(), DetailActivity.class)
-                        .putExtra(Intent.EXTRA_TEXT, weatherItem);
+                        .putExtra(Intent.EXTRA_TEXT, name.toString());
                 con.startActivity(d_Intent);
 
 

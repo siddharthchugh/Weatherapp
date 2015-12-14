@@ -1,11 +1,9 @@
 package projects.richie.com.myproject1;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -20,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     private ProgressBar bar;
     private int id;
-   private final String URL_MOVIE_LINK="http://api.themoviedb.org/3/discover/movie?page=1&certification_coutnry=in&&api_key=8ab57b43e21f9bae201c7c686efee010";
+   private final String URL_MOVIE_LINK="http://api.themoviedb.org";///discover/movie?page=1&certification_coutnry=in&&api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_SEEDS="http://services.hanselandpetal.com";
 
     private final String URL_TOPRATEDMOVIE_LINK="http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010";
     private final String URL_POPULARMOVIE_LINK="http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
@@ -30,21 +29,19 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout movieLayout;
 
     private List<InfoMoview> moviedetails;
-    private List<MoviewGrid> grid;
+   // private List<MoviewGrid> grid;
     private InfoMoview mw;
     String msg;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    /*    bar = (ProgressBar) findViewById(R.id.progressBar);
-        bar.setVisibility(View.INVISIBLE);
-*/  //      grid = new ArrayList<>();
 
-//    requestData(URL_MOVIE_LINK);
+  //      gridView = (GridView) findViewById(R.id.movieGrid);
 
-
-
+     //   requestData(URL_MOVIE_LINK);
     }
 
 
@@ -58,10 +55,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-*/
 
 
-/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -70,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.action_popular:
-                requestData(URL_POPULARMOVIE_LINK);
+//                requestData(URL_POPULARMOVIE_LINK);
 
 
 
  if(isConnecetd()) {
-                   requestData(URL_POPULARMOVIE_LINK);
+                   requestData(URL_SEEDS);
 
                 }
                 else
@@ -127,32 +122,63 @@ public class MainActivity extends AppCompatActivity {
     protected void updated() {
 
 
-         adapt = new ArrayAdapter<String>(this, R.layout.movieitems,R.id.list_item_version_name);
-
-        gridView = (GridView) findViewById(R.id.movieGrid);
-
+         AndroidFlavorAdapter aapt = new AndroidFlavorAdapter(this,R.layout.movieitems,moviedetails);
+//     //        MyBaseAdapter ad = new MyBaseAdapter(MainActivity.this,R.layout.list_item,moviedetails);
 
 
-        gridView.setAdapter(adapt);
+
+        gridView.setAdapter(aapt);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-//                String  msg = adapt.getItem(i);
+//              String  msg = Integer.toString(ad.getItem(i));
 
-                Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_SHORT).show();
             }
         });
    }
 
+    public interface GetAllAPI {
+        @GET("/all")
+        List<InfoMoview> getCountries();
+    }
     private void requestData(String url) {
-        MoviewGrid mg = new MoviewGrid();
+       */
+/* MoviewGrid mg = new MoviewGrid();
         mg.execute(url);
+ *//*
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(URL_MOVIE_LINK)
+//                .setConverter(new GsonConverter(gson))
+                .build();
+        MovieApi api = restAdapter.create(MovieApi.class);
+
+
+        api.getMovie(new Callback<List<InfoMoview>>() {
+
+            @Override
+            public void success(List<InfoMoview> arg0, Response arg1) {
+                moviedetails = arg0;
+
+
+                updated();
+            }
+
+
+            @Override
+            public void failure(RetrofitError arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
     }
 */
 
+/*
     public class MoviewGrid extends AsyncTask<String,String,String> {
 
 
@@ -174,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+*/
 /*
             for(int i =0;i<params.length;i++){
 
@@ -186,7 +213,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-*/
+*//*
+
 
 
             String content =  HttpManger.getData(params[0]);
@@ -215,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
             // updated(values[0]);
         }
     }
+*/
 
 
 

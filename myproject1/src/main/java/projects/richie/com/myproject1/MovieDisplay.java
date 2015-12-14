@@ -1,19 +1,20 @@
 
 package projects.richie.com.myproject1;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -21,8 +22,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -34,19 +38,22 @@ public class MovieDisplay extends Fragment {
    ArrayAdapter<String> movieAdapter;
     private AndroidFlavorAdapter flavorAdapter;
     int position = 0;
+    private  TextView vCount;
+    int count;
     private View rootView;
     private GridView gridView;
     private ProgressBar bar;
-    private final String URL_MOVIE_LINK="http://api.themoviedb.org/3/discover/movie?page=1&certification_coutnry=in&&api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_MOVIE_LINK="http://api.themoviedb.org";
 
-    private final String URL_TOPRATEDMOVIE_LINK="http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010";
+//    private final String URL_TOPRATEDMOVIE_LINK="http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010";
+  //  private final String URL_SEEDS="http://services.hanselandpetal.com";
 
-    private final String URL_POPULARMOVIE_LINK="http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
+    //private final String URL_POPULARMOVIE_LINK="http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
 
     private TextView movieData;
-  private List<InfoMoview> moviedetails;
-    private List<MoviewGrid> grid;
-    private List<PopularMoviewGrid> grid1;
+    private TextView movieName;
+  public List<InfoMoview> moviedetails;
+   // private List<MoviewGrid> grid;
 
     public MovieDisplay() {
    setHasOptionsMenu(true);
@@ -84,35 +91,23 @@ public class MovieDisplay extends Fragment {
 //     flavorAdapter = new AndroidFlavorAdapter(getActivity(),(Arrays.asList(androidFlavors)));
 
 
+/*
 movieAdapter=                 new ArrayAdapter<String>(
                         getActivity(), // The current context (this activity)
                         R.layout.movieitems, // The name of the layout ID.
                         R.id.list_item_version_name, // The ID of the textview to populate.
                         new ArrayList<String>());
-
-// Now that we have some dummy forecast data, create an ArrayAdapter.
-// The ArrayAdapter will take data from a source (like our dummy forecast) and
-// use it to populate the ListView it's attached to.
-
+*/
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-       gridView = (GridView) rootView.findViewById(R.id.movieGrid);
+  //     gridView = (GridView) rootView.findViewById(R.id.movieGrid);
+        movieName = (TextView) rootView.findViewById(R.id.textname);
         bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+
+        movieName.setMovementMethod(new ScrollingMovementMethod());
         bar.setVisibility(View.INVISIBLE);
-        grid = new ArrayList<>();
-
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-//                Toast.makeText(getContext(),"Clicked"+movieAdapter.getItem(i),Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-         requestData(URL_MOVIE_LINK);
+//       grid = new ArrayList<>();
 
         return rootView;
 
@@ -121,17 +116,117 @@ movieAdapter=                 new ArrayAdapter<String>(
 
     protected void updated(){
 
+       // AndroidFlavorAdapter aapt = new AndroidFlavorAdapter(getActivity(), R.layout.movieitems, moviedetails);
+//        MyBaseAdapter ad = new MyBaseAdapter(getActivity(),R.layout.movieitems,moviedetails);
 
-        final AndroidFlavorAdapter aapt = new AndroidFlavorAdapter(getActivity(), R.layout.movieitems, moviedetails);
-        gridView.setAdapter(aapt);
+    //    gridView.setAdapter(ad);
+/*
+        vCount = (TextView) getActivity().findViewById(R.id.textCount);
+  String msg = String.valueOf(gridView.getCount());
+        vCount.setText(msg);
+*/
 
+
+
+
+        }
+
+/*
+      gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+              startActivity(new Intent(getActivity(), DetailActivityFragment.class));
+
+//              Toast.makeText(getActivity(),""+ gridView.getCount(),Toast.LENGTH_SHORT ).show();
+          }
+      });
+*/
+
+
+
+
+
+
+     private void requestData() {
+         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Fetching Data", "Please wait...", false, false);
+
+         RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).build();
+         MovieApi api = adapter.create(MovieApi.class);
+         Log.d("The Json data", ":" + api);
+
+         api.getMovie(new Callback<InfoMoview>() {
+
+             @Override
+             public void success(InfoMoview infoMoview, retrofit.client.Response response) {
+                 loading.dismiss();
+                   movieName.setText("Status :" + infoMoview.getresults().get(0).getTitle());
+             }
+
+             @Override
+             public void failure(RetrofitError error) {
+
+                 String merror = error.getMessage();
+             }
+         });
      }
 
+ /*            @Override
+             public void success(List<InfoMoview> arg0, Response arg1) {
+                // movieName = ;
 
-    private void requestData(String url) {
-        MoviewGrid mg = new MoviewGrid();
-        mg.execute(url);
-    }
+       movieName = (TextView) getActivity().findViewById(R.id.textname);
+                 movieName.setText(arg0.toString());
+Log.d("The Json data",":"+movieName);
+             *//*    moviedetails = arg0;
+                 updated();
+                 loading.dismiss();
+*//*
+             }
+
+             @Override
+             public void failure(RetrofitError arg0) {
+                 // TODO Auto-generated method stub
+
+             }
+ */
+/*
+         api.getMovie(new Callback<List<InfoMoview>>() {
+             @Override
+             public void success(InfoMoview infoMoview, Response response) {
+
+
+                 updated();
+
+             }
+
+             @Override
+             public void failure(RetrofitError error) {
+
+             }
+         });
+*/
+/*
+         api.getMovie(new Callback<InfoMoview>() {
+             @Override
+             public void success(List<InfoMoview> infoMoviews, Response response) {
+                 moviedetails = infoMoviews;
+                 updated();
+             }
+
+             @Override
+             public void failure(RetrofitError error) {
+                 String merror = error.getMessage();
+             }
+         });
+*/
+
+
+
+
+
+
+
 
 /*
     private void requestPopularData(String url) {
@@ -140,7 +235,7 @@ movieAdapter=                 new ArrayAdapter<String>(
     }
 */
 
-    protected boolean isConnecetd(){
+    protected boolean isConnecetd() {
 
         ConnectivityManager manageOnline = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = manageOnline.getActiveNetworkInfo();
@@ -154,6 +249,7 @@ movieAdapter=                 new ArrayAdapter<String>(
         }
     }
 
+/*
     public class MoviewGrid extends AsyncTask<String,String,String> {
 
 
@@ -201,8 +297,10 @@ movieAdapter=                 new ArrayAdapter<String>(
         }
     }
 
+*/
 
 
+/*
     public class PopularMoviewGrid extends AsyncTask<String,String,String>{
 
 
@@ -224,6 +322,7 @@ movieAdapter=                 new ArrayAdapter<String>(
         protected String doInBackground(String... params) {
 
 
+*/
 /*
             for(int i =0;i<params.length;i++){
 
@@ -237,6 +336,8 @@ movieAdapter=                 new ArrayAdapter<String>(
 
             }
 */
+    /*
+
 
             String content =  HttpManger.getData(params[0]);
 
@@ -260,17 +361,30 @@ movieAdapter=                 new ArrayAdapter<String>(
 
         }
 
+
+        public void getCount(){
+
+        // count = gridView.getCount();
+
+
+
+        }
+
+
+
         @Override
         protected void onProgressUpdate(String... values) {
             // updated(values[0]);
         }
     }
+*/
 
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+
 
     }
 
@@ -279,9 +393,11 @@ movieAdapter=                 new ArrayAdapter<String>(
 
         int id = item.getItemId();
         switch (id){
+
+
             case R.id.action_popular:
                 if(isConnecetd()) {
-                    requestData(URL_POPULARMOVIE_LINK);
+                    requestData();
 
                 }
                 else
@@ -295,7 +411,7 @@ movieAdapter=                 new ArrayAdapter<String>(
 
             case R.id.action_highestrated:
                 if(isConnecetd()) {
-                    requestData(URL_TOPRATEDMOVIE_LINK);
+               //     requestData(URL_TOPRATEDMOVIE_LINK);
 
                 }
                 else

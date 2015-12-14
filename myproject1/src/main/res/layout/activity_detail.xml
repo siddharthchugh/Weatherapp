@@ -1,10 +1,9 @@
-<!--
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
-    android:name="projects.richie.com.myproject1.MovieDisplay"
-    tools:layout="@layout/fragment_main" android:layout_width="match_parent"
+    android:name="projects.richie.com.myproject1.DetailActivityFragment"
+    tools:layout="@layout/fragment_detail" android:layout_width="match_parent"
     android:layout_height="match_parent" />
--->
+<!--
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textAllCaps="true"
-            android:textColor="#669900"
+           android:textColor="#669900"
             android:id="@+id/title"
             android:layout_marginLeft="20dp"
 
@@ -181,7 +179,7 @@
     </RelativeLayout>
 
 
-    <!--
+    &lt;!&ndash;
         <fragment  android:id="@+id/fragment"
             android:name="projects.richie.com.myproject1.DetailActivityFragment"
             tools:layout="@layout/fragment_detail"
@@ -190,8 +188,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    -->
-    <!--
+    &ndash;&gt;
+    &lt;!&ndash;
         <GridView
 
             android:id="@+id/movieGrid"
@@ -205,7 +203,7 @@
             android:gravity="center|center_vertical"
           android:layout_below="@+id/toolbar"
             ></GridView>
-    -->
+    &ndash;&gt;
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -217,3 +215,4 @@
 
 
 </RelativeLayout>
+-->

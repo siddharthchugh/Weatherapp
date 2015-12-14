@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -62,13 +62,13 @@ View v = inflater.inflate(R.layout.fragment_detail, container, false);
 
           if(in!=null&&in.hasExtra(Intent.EXTRA_TEXT)){
 
-
-              String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
-              mForecast = in.getStringExtra(Intent.EXTRA_TEXT);
+             mForecast = in.getStringExtra(Intent.EXTRA_TEXT);
+/*
               ((TextView) v.findViewById(R.id.title))
                       .setText(forecastStr);
+*/
+Toast.makeText(getActivity(),"Clicked"+mForecast,Toast.LENGTH_LONG).show();
 
-Detail();
         }
 
 /*
@@ -80,14 +80,14 @@ Detail();
 
         }
 */
-
+//Detail();
 
 
         return v;
 
     }
 
-    private Intent createShareForecastIntent(){
+    /*private Intent createShareForecastIntent(){
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -97,7 +97,7 @@ Detail();
 
         return shareIntent;
     }
-
+*/
 
 
     @Override
@@ -111,12 +111,12 @@ Detail();
 
         // Attach an intent to this ShareActionProvider.  You can update this at any time,
         // like when the user selects a new piece of data they might like to share.
-        if (mShareActionProvider != null) {
+  /*      if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(createShareForecastIntent());
         } else {
             Log.d(LOG_TAG, "Share Action Provider is null?");
         }
-
+*/
 
     }
     public void Detail(){
@@ -131,21 +131,17 @@ Detail();
             requestData(url);
 
 
-/*
-           if(data == id ) {
                requestData("http://api.themoviedb.org/3/movie/" + 206647 + "?api_key=8ab57b43e21f9bae201c7c686efee010");
-           Toast.makeText(getActivity(),""+data, Toast.LENGTH_SHORT).show();
             }
 
    else
            {
-               Toast.makeText(getActivity(),"Not Applicaable.",Toast.LENGTH_SHORT).show();
+               Toast.makeText(getActivity(),"Not Applicaable.", Toast.LENGTH_SHORT).show();
            }
-*/
 
  }
 
-    }
+
 
 
 
@@ -167,10 +163,9 @@ Detail();
 
         if(info!=null){
             for(InfoMoview tl : info )
-                titleMovie.setText(tl.getId()+" ");
+                titleMovie.append(tl.getId()+" "+tl.moviewName);
 
-          /*  titleMovie.append(tl.getMoviewName()+" ");
-            titleMovie.append(tl.getMoviewName()+" ");
+      /*      titleMovie.append(tl.getMoviewName()+" ");
 */
         }
 
@@ -179,8 +174,10 @@ Detail();
 
     private void requestData(String url) {
 
-        MoviewGrid mg = new MoviewGrid();
-        mg.execute();}
+    /*    MoviewGrid mg = new MoviewGrid();
+        mg.execute();
+   */
+    }
 
     public class MoviewGrid extends AsyncTask<RequestMethod,String,String> {
 

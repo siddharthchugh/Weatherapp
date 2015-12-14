@@ -1,16 +1,29 @@
 package projects.richie.com.myproject1;
 
+import com.google.gson.annotations.Expose;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Richie on 22-10-2015.
  */
 public class InfoMoview {
 
+    public int getPage() {
+        return page;
+    }
 
-    public int getMovieID() {
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int page;
+    public String getMovieID() {
         return movieID;
     }
 
-    public void setMovieID(int movieID) {
+    public void setMovieID(String movieID) {
         this.movieID = movieID;
     }
 
@@ -39,8 +52,20 @@ public class InfoMoview {
     }
 
     private String detail;
-    public int movieID;
+    public String movieID;
+    @Expose
     public String moviewName;
+    @Expose
+    private List<Results> results= new ArrayList<Results>();
+
+    public List<Results> getresults() {
+        return results;
+    }
+
+    public void setresults(List<Results> rs) {
+        this.results = rs;
+    }
+
     public String movieImages;
     public int id;
 

@@ -1,7 +1,6 @@
 package projects.richie.com.myproject1;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -9,13 +8,11 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
@@ -36,16 +33,30 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-       titleMovie  = (TextView) findViewById(R.id.title);
-        bar= (ProgressBar) findViewById(R.id.progressBar);
-        titleMovie.setMovementMethod(new ScrollingMovementMethod());
+    //   titleMovie  = (TextView) findViewById(R.id.title);
+      //  bar= (ProgressBar) findViewById(R.id.progressBar);
+//        titleMovie.setMovementMethod(new ScrollingMovementMethod());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
  getSupportActionBar().setHomeButtonEnabled(true);
-       detail = new ArrayList<>();
 
-       Detail();
-    }
+
+
+
+//       detail = new ArrayList<>();
+
+//       Detail();
+/*
+        Intent in = getIntent();
+        if (in != null && in.hasExtra(Intent.EXTRA_TEXT)) {
+
+
+            // String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
+            movieID = in.getStringExtra(Intent.EXTRA_TEXT);
+            titleMovie.setText(movieID);
+        }
+*/
+        }
 
 
 
@@ -75,23 +86,28 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void Detail(){
-
-        if(isConnecetd()) {
-
-            Intent in = getIntent();
-            if (in != null && in.hasExtra(Intent.EXTRA_TEXT)) {
+/*
+        Intent in = getIntent();
+        if (in != null && in.hasExtra(Intent.EXTRA_TEXT)) {
 
 
-                String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
-                movieID = in.getStringExtra(Intent.EXTRA_TEXT);
-                ((TextView) findViewById(R.id.title))
-                        .setText(forecastStr);
+            // String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
+            movieID = in.getStringExtra(Intent.EXTRA_TEXT);
+            titleMovie.setText(movieID);
+*/
+
+            if(isConnecetd()) {
+
+
+               // String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
+          //      movieID = in.getStringExtra(Intent.EXTRA_TEXT);
+
+                requestData("http://api.themoviedb.org/3/movie/"+206647+"?api_key=8ab57b43e21f9bae201c7c686efee010");
 
 
               }
-            requestData("http://api.themoviedb.org/3/movie/"+movieID+"?api_key=8ab57b43e21f9bae201c7c686efee010");
 
-        }
+
 
 
     }
@@ -114,16 +130,18 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+/*
     protected void updated() {
 
         if(info!=null){
             for(InfoMoview tl : info )
-             titleMovie.setText(tl.getMovieID()+" ");
+             titleMovie.setText(tl.getId()+" "+tl.moviewName);
 
         }
 
 
     }
+*/
 
     private void requestData(String url) {
 
@@ -140,7 +158,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-       updated();
+      // updated();
             if(detail.size()==0) {
 
                 bar.setVisibility(View.VISIBLE);
@@ -166,9 +184,9 @@ public class DetailActivity extends AppCompatActivity {
 
             }
 */
-           // String content =  HttpManger.getData(params[0]);
+            String content =  HttpManger.getData(params[0]);
 
-            return "";
+            return content;
         }
 
         @Override
@@ -176,7 +194,7 @@ public class DetailActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             info = MoviesJson.imageConversion(s);
-            updated();
+            //updated();
 
             detail.remove(this);
             if(detail.size()==0){

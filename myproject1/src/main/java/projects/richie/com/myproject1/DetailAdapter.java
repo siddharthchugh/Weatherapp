@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -75,8 +74,10 @@ public class DetailAdapter extends ArrayAdapter<InfoMoview> {
 
 
 
+/*
         TextView versionNameView = (TextView) convertView.findViewById(R.id.list_item_version_name);
         versionNameView.setText(in.getMoviewName());
+*/
 
 /*
         TextView versionNumberView = (TextView) convertView.findViewById(R.id.list_item_versionnumber_textview);

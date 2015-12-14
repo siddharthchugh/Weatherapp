@@ -1,30 +1,45 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:orientation="vertical"
      tools:context=".MainActivityFragment">
 
 
 
-    <!--<TextView
+<!--
+    <TextView
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_below="@+id/selection"
+        android:id="@+id/textCount"
+        android:textColor="#ffcc11"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true" />
 -->
-        <GridView
 
-            android:id="@+id/movieGrid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="50dp"
-            android:numColumns="2"
-            android:verticalSpacing="20dp"
-            android:horizontalSpacing="20dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center|center_vertical"
-            ></GridView>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textname"
+        android:textColor="#ffcc11"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true" />
+
+
+       <!--     <GridView
+
+                android:id="@+id/movieGrid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnWidth="50dp"
+                android:numColumns="2"
+                android:verticalSpacing="20dp"
+                android:horizontalSpacing="20dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center|center_vertical"
+                ></GridView>-->
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -35,4 +50,4 @@
 
 
 
-</RelativeLayout>
+</LinearLayout>

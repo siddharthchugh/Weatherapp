@@ -9,5 +9,10 @@
     <item android:id="@+id/action_highestrated" android:title="@string/highest"
         android:orderInCategory="101" app:showAsAction="never" />
 
+    <item android:id="@+id/action_count" android:title=""
+        android:orderInCategory="102" app:showAsAction="always" />
+
+    <item android:id="@+id/action_favorite" android:title="My Favorite"
+        android:orderInCategory="101" app:showAsAction="never" />
 
 </menu>

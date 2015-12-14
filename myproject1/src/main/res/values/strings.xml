@@ -20,6 +20,7 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_my_favourite">MyFavouriteActivity</string>
      <string name="share">Share</string>
+    <string name="title_activity_my_favorite">MyFavoriteActivity</string>
 
 
 
