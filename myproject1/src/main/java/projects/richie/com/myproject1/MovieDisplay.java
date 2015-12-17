@@ -40,11 +40,11 @@ public class MovieDisplay extends Fragment {
     private View rootView;
     private GridView gridView;
     private ProgressBar bar;
-    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=API";
 
-    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=API";
 
-    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=API";
 
     private TextView movieData;
     public List<InfoMoview> moviedetails;

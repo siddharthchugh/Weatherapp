@@ -13,9 +13,7 @@ import java.util.List;
 public class DetailActivity extends AppCompatActivity {
 
     private Toolbar toolBar;
-    private final String URL_MOVIEDETAIL_LINK="http://api.themoviedb.org/3/movie/206647?api_key=8ab57b43e21f9bae201c7c686efee010";
-   /// private final String URL_movie_details;
-   // private List<MoviewGrid> detail;
+    private final String URL_MOVIEDETAIL_LINK="http://api.themoviedb.org/3/movie/206647?api_key=API";
     private TextView titleMovie,releaseDate,synopsisData;
     private ProgressBar bar;
     private int id;

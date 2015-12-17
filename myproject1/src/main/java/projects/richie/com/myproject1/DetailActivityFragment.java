@@ -117,7 +117,7 @@ public class DetailActivityFragment extends Fragment {
 
     public interface MovieApi {
 
-        @GET("/3/movie/206647?api_key=8ab57b43e21f9bae201c7c686efee010")
+        @GET("/3/movie/206647?api_key=API")
 
         void getMovie(Callback<InfoMoview> cb);
     }
