@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -62,12 +65,10 @@ public class DetailAdapter extends ArrayAdapter<InfoMoview> {
         }
         InfoMoview in = info.get(position);
 
-        // ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
-/*
+         ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
         Picasso.with(con)
-                .load(" http://image.tmdb.org/t/p/w185/")
+                .load(" http://image.tmdb.org/t/p/w154/"+in.getMovieImages())
                 .into(iconView);
-*/
 
 //        Picasso.with(con).load("http://image.tmdb.org/t/p/w500/&api_key=8ab57b43e21f9bae201c7c686efee010").into(iconView);
 

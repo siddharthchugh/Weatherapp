@@ -19,21 +19,17 @@ public class MoviesJson {
 
         try {
             JSONObject ob = new JSONObject(content);
-            list = new InfoMoview();
-            list.setPage(ob.getInt("page"));
-//   ob.getInt(getPage());
 
             JSONArray ar = ob.getJSONArray("results");//new JSONArray(content);
             List<InfoMoview> movieList = new ArrayList<>();
 
             for (int i = 0; i < ar.length(); i++) {
+                list = new InfoMoview();
 
-               JSONObject obj = ar.getJSONObject(i);
-                list.setMoviewName(obj.getString("original_title"));
-/*
-               list.setMoviewName(obj.getString("poster_path"));
-*/
-//                list.setMoviewName(obj.getString("title"));
+                JSONObject obj = ar.getJSONObject(i);
+                list.setMoviewName(obj.getString("title"));
+               list.setMovieImages(obj.getString("poster_path"));
+                list.setMovieID(obj.getString("id"));
 
                 movieList.add(list);
 
@@ -47,31 +43,19 @@ public class MoviesJson {
 
     }
 
+
     public static List<InfoMoview> imageConversion(String content) {
 
 
 
         try {
              JSONObject ob = new JSONObject(content);
-          // JSONArray ar = ob.getJSONArray("results");//new JSONArray(content);
             List<InfoMoview> movieList = new ArrayList<>();
-          //  for (int i = 0; i < ob.length(); i++) {
-              //  JSONObject obj = ob.getJSONObject(i);
                 InfoMoview list = new InfoMoview();
-               list.setMovieID(ob.getString("id"));
-                list.setMoviewName(ob.getString("title"));
-          //  list.setDetail(ob.getString("overview"));
+                 list.setDetail_title(ob.getString("title"));
+               list.setDetail_image(ob.getString("backdrop_path"));
 
-
-
-/*
-                list.setMoviewName(obj.getString("poster_path"));
-                list.setMoviewName(obj.getString("title"));
-*/
-
-
-
-                movieList.add(list);
+            movieList.add(list);
 
 
             //}

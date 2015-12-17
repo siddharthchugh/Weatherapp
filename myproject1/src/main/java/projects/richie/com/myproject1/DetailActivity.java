@@ -1,15 +1,10 @@
 package projects.richie.com.myproject1;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,7 +15,7 @@ public class DetailActivity extends AppCompatActivity {
     private Toolbar toolBar;
     private final String URL_MOVIEDETAIL_LINK="http://api.themoviedb.org/3/movie/206647?api_key=8ab57b43e21f9bae201c7c686efee010";
    /// private final String URL_movie_details;
-    private List<MoviewGrid> detail;
+   // private List<MoviewGrid> detail;
     private TextView titleMovie,releaseDate,synopsisData;
     private ProgressBar bar;
     private int id;
@@ -33,9 +28,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-    //   titleMovie  = (TextView) findViewById(R.id.title);
-      //  bar= (ProgressBar) findViewById(R.id.progressBar);
-//        titleMovie.setMovementMethod(new ScrollingMovementMethod());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
  getSupportActionBar().setHomeButtonEnabled(true);
@@ -43,19 +35,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-//       detail = new ArrayList<>();
-
-//       Detail();
-/*
-        Intent in = getIntent();
-        if (in != null && in.hasExtra(Intent.EXTRA_TEXT)) {
-
-
-            // String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
-            movieID = in.getStringExtra(Intent.EXTRA_TEXT);
-            titleMovie.setText(movieID);
-        }
-*/
         }
 
 
@@ -85,130 +64,5 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    public void Detail(){
-/*
-        Intent in = getIntent();
-        if (in != null && in.hasExtra(Intent.EXTRA_TEXT)) {
-
-
-            // String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
-            movieID = in.getStringExtra(Intent.EXTRA_TEXT);
-            titleMovie.setText(movieID);
-*/
-
-            if(isConnecetd()) {
-
-
-               // String forecastStr = in.getStringExtra(Intent.EXTRA_TEXT);
-          //      movieID = in.getStringExtra(Intent.EXTRA_TEXT);
-
-                requestData("http://api.themoviedb.org/3/movie/"+206647+"?api_key=8ab57b43e21f9bae201c7c686efee010");
-
-
-              }
-
-
-
-
-    }
-
-
-
-
-
-    protected boolean isConnecetd(){
-
-        ConnectivityManager manageOnline = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = manageOnline.getActiveNetworkInfo();
-
-        if(info != null && info.isConnected()){
-
-            return  true;
-        }
-        else {
-            return false;
-        }
-    }
-
-/*
-    protected void updated() {
-
-        if(info!=null){
-            for(InfoMoview tl : info )
-             titleMovie.setText(tl.getId()+" "+tl.moviewName);
-
-        }
-
-
-    }
-*/
-
-    private void requestData(String url) {
-
-
-
-        MoviewGrid mg = new MoviewGrid();
-        mg.execute(url);
-
-    }
-
-    public class MoviewGrid extends AsyncTask<String,String,String> {
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-      // updated();
-            if(detail.size()==0) {
-
-                bar.setVisibility(View.VISIBLE);
-            }
-            detail.add(this);
-
-
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-
-/*
-            for(int i =0;i<params.length;i++){
-
-                publishProgress("Movies Detail"+ params[i]+"\n");
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            }
-*/
-            String content =  HttpManger.getData(params[0]);
-
-            return content;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            info = MoviesJson.imageConversion(s);
-            //updated();
-
-            detail.remove(this);
-            if(detail.size()==0){
-                bar.setVisibility(View.INVISIBLE);
-
-            }
-
-
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            // updated(values[0]);
-        }
-    }
 
 }

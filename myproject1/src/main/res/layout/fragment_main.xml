@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
      tools:context=".MainActivityFragment">
 
@@ -18,28 +17,19 @@
         android:layout_centerHorizontal="true" />
 -->
 
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textname"
-        android:textColor="#ffcc11"
-        android:layout_marginBottom="10dp"
-        android:layout_centerHorizontal="true" />
 
 
-       <!--     <GridView
+            <GridView
 
                 android:id="@+id/movieGrid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:columnWidth="50dp"
+                android:columnWidth="40dp"
                 android:numColumns="2"
-                android:verticalSpacing="20dp"
-                android:horizontalSpacing="20dp"
+                android:horizontalSpacing="5dp"
                 android:stretchMode="columnWidth"
-                android:gravity="center|center_vertical"
-                ></GridView>-->
+                android:gravity="center"
+                ></GridView>
 
     <ProgressBar
         android:layout_width="wrap_content"

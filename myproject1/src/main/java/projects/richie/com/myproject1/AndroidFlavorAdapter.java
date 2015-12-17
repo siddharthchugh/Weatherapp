@@ -2,12 +2,16 @@ package projects.richie.com.myproject1;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,9 +25,8 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
     Context con;
     private int id;
     InfoMoview in;
+    final String URL = "http://image.tmdb.org/t/p/w780/";
     List<InfoMoview> info;
-//    private final String URL_MOVIE_LINK="http://api.themoviedb.org/3/discover/movie?api_key=8ab57b43e21f9bae201c7c686efee010";
-
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
      * The context is used to inflate the layout file, and the List is the data we want
@@ -32,18 +35,18 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
      * @param context        The current context. Used to inflate the layout file.
      * @param androidFlavors A List of AndroidFlavor objects to display in a list
      */
-    public AndroidFlavorAdapter(Activity context,int resource, List<InfoMoview> androidFlavors) {
+    public AndroidFlavorAdapter(Activity context, List<InfoMoview> androidFlavors) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
-        super(context, resource, androidFlavors);
+        super(context, 0, androidFlavors);
     this.con = context;
         this.info = androidFlavors;
 
     }
 
-    /**
+   /**
      * Provides a view for an AdapterView (ListView, GridView, etc.)
      *
      * @param position    The AdapterView position that is requesting a view
@@ -66,39 +69,32 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
         }
         in = info.get(position);
 
- /* ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
+  ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
         Picasso.with(con)
-                .load("http://image.tmdb.org/t/p/w180/"+in.getMovieImages())
+                .load(URL+in.getMovieImages())
                 .into(iconView);
 
-*/
 
-         name = (TextView) convertView.findViewById(R.id.list_item_version_name);
-        name.setText(in.getMoviewName());
-/*
-        id_movie = (TextView) convertView.findViewById(R.id.list_item_versionnumber_textview);
-        id_movie.setText((in.getMovieID()));
-*/
 
-/*
         movieLayout = (LinearLayout)convertView.findViewById(R.id.itemlayout);
+
+
+
         movieLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-//                String msg = String.valueOf(gridView.getCount());
-                //  vCount.setText(msg);
+                String msg = String.valueOf(in);
 
                 Intent d_Intent = new Intent(getContext(), DetailActivity.class)
-                        .putExtra(Intent.EXTRA_TEXT, name.toString());
+                        .putExtra("movieid", in.getMovieID());
                 con.startActivity(d_Intent);
+  //              Toast.makeText(getContext(), in.getMovieID(), Toast.LENGTH_SHORT).show();
 
 
             }
         });
-*/
-//        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
 
 
 

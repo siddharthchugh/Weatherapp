@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".DetailActivity">
 
 
@@ -9,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:elevation="3dp"
+        android:background="#2196ff"
         android:gravity="center_vertical|left"
         >
         <TextView
@@ -16,46 +18,41 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textAllCaps="true"
-            android:textColor="#669900"
-            android:id="@+id/title"
-            android:layout_marginLeft="20dp"
+            android:textColor="#fff"
+            android:id="@+id/detailTitle"
+            android:layout_marginLeft="10dp"
 
             />
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="3dp"
-        android:orientation="horizontal"
         android:layout_below="@+id/titlelayout"
+       android:orientation="vertical"
 
+        android:layout_marginTop="5dp"
         android:id="@+id/relativeLayout">
-        <LinearLayout
-            android:id="@+id/imagePoster"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="3dp"
-            android:gravity="center_vertical|center"
-            >
+
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView"
+                android:layout_height="200dp"
+                android:id="@+id/detail_bgImage"
                 android:src="@mipmap/ic_launcher"
+             android:layout_gravity="center_vertical"
                 />
 
 
-        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/detailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:layout_below="@+id/imagePoster">
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/detail_bgImage">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -68,8 +65,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Release Date"
-                    android:textColor="#bdbdbd"
+                    android:text="@string/release"
+                    android:textColor="@color/heading_color"
                     android:id="@+id/textView"
                     android:textSize="20sp"
                     android:layout_marginLeft="10dp"
@@ -81,11 +78,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="1/23"
-                    android:textSize="18sp"
+                    android:textColor="@color/detail_color"
+                    android:textSize="16sp"
                     android:id="@+id/releaseData"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="18dp"
                     android:layout_below="@+id/progressBar"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -106,11 +103,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Vote Average"
-                    android:textColor="#bdbdbd"
+                    android:text="@string/vote"
+                    android:textColor="@color/heading_color"
                     android:id="@+id/textVie"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_below="@+id/relativeLayout"
                     android:layout_toLeftOf="@+id/progressBar"
                     android:layout_toStartOf="@+id/progressBar" />
@@ -119,8 +116,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="1/23"
-                    android:textSize="18sp"
+                    android:textColor="@color/detail_color"
+                    android:textSize="16sp"
                     android:id="@+id/voteData"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
@@ -142,17 +139,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#fff"
             android:layout_below="@+id/detailLayout"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="10dp"
-                android:textSize="18sp"
-                android:textColor="#bdbdbd"
-                android:text="Synopsis"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/heading_color"
+                android:text="@string/overview"
                 />
 
             <TextView
@@ -161,8 +156,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:padding="10dp"
-                android:textSize="18sp"
-                android:textColor="#bdbdbd"
+                android:textSize="16sp"
+                android:textColor="@color/detail_color"
                 />
 
         </LinearLayout>
@@ -171,11 +166,10 @@
 
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 
-<!--
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -183,7 +177,6 @@
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"
         />
--->
 
 
 

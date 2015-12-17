@@ -2,13 +2,89 @@ package projects.richie.com.myproject1;
 
 import com.google.gson.annotations.Expose;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Richie on 22-10-2015.
  */
 public class InfoMoview {
+
+    @Expose
+    public String detail_image;
+@Expose
+    public String detail_title;
+
+    @Expose
+    private String title;
+
+    @Expose
+     private String release_date;
+
+    @Expose
+
+    private String vote_average;
+
+    public String getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(String vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    @Expose
+
+    private String overview;
+
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    @Expose
+    private String backdrop_path;
+
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public String getDetail_image() {
+        return detail_image;
+    }
+
+    public void setDetail_image(String detail_image) {
+        this.detail_image = detail_image;
+    }
+
+    public String getDetail_title() {
+        return detail_title;
+    }
+
+    public void setDetail_title(String detail_title) {
+        this.detail_title = detail_title;
+    }
 
     public int getPage() {
         return page;
@@ -53,8 +129,8 @@ public class InfoMoview {
 
     private String detail;
     public String movieID;
-    @Expose
     public String moviewName;
+/*
     @Expose
     private List<Results> results= new ArrayList<Results>();
 
@@ -65,6 +141,7 @@ public class InfoMoview {
     public void setresults(List<Results> rs) {
         this.results = rs;
     }
+*/
 
     public String movieImages;
     public int id;

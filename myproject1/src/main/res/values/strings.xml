@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Myproject1</string>
+    <string name="app_name">Pop Movie</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_aboutus">About Us</string>
@@ -21,7 +21,8 @@
     <string name="title_activity_my_favourite">MyFavouriteActivity</string>
      <string name="share">Share</string>
     <string name="title_activity_my_favorite">MyFavoriteActivity</string>
-
-
+  <string name="overview">Synoposis</string>
+    <string name="release">Release Date</string>
+    <string name="vote">Vote Average</string>
 
 </resources>
