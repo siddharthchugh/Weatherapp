@@ -2,7 +2,6 @@ package projects.richie.com.myproject1;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,29 +75,6 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
 
 
 
-        movieLayout = (LinearLayout)convertView.findViewById(R.id.itemlayout);
-
-
-
-        movieLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                String msg = String.valueOf(in);
-
-                Intent d_Intent = new Intent(getContext(), DetailActivity.class)
-                        .putExtra("movieid", in.getMovieID());
-                con.startActivity(d_Intent);
-  //              Toast.makeText(getContext(), in.getMovieID(), Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-
-
-
-
-        return convertView;
+       return convertView;
     }
 }

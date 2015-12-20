@@ -44,16 +44,19 @@ public class MoviesJson {
     }
 
 
-    public static List<InfoMoview> imageConversion(String content) {
+    public static List<MovieDetail> imageConversion(String content) {
 
 
 
         try {
              JSONObject ob = new JSONObject(content);
-            List<InfoMoview> movieList = new ArrayList<>();
-                InfoMoview list = new InfoMoview();
-                 list.setDetail_title(ob.getString("title"));
-               list.setDetail_image(ob.getString("backdrop_path"));
+            List<MovieDetail> movieList = new ArrayList<>();
+            MovieDetail list = new MovieDetail();
+                 list.setTitle(ob.getString("title"));
+               list.setBackdrop_path(ob.getString("backdrop_path"));
+            list.setRelease_date(ob.getString("release_date"));
+            list.setVote_average(ob.getString("vote_average"));
+            list.setOverview(ob.getString("synopsis"));
 
             movieList.add(list);
 

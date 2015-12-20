@@ -1,6 +1,9 @@
 package projects.richie.com.myproject1;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,12 +16,12 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Observable;
 
+import retrofit.Call;
 import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.http.GET;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -26,10 +29,10 @@ import retrofit.http.GET;
 public class DetailActivityFragment extends Fragment {
 
     TextView forecsastData;
-//    private List<MovieDetail> detail;
+    private TextView mid;
     private ProgressBar bar;
     private int id;
-    private List<InfoMoview> info;
+    private List<MovieDetail> infom;
 
     private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
     private static final String FORECAST_SHARE_HASHTA = " #PopMovie ";
@@ -44,19 +47,9 @@ public class DetailActivityFragment extends Fragment {
     private Intent in;
     private ProgressBar progrssBar;
 
-    public static DetailActivityFragment newInstance(int index) {
-        DetailActivityFragment f = new DetailActivityFragment();
+   //private List<MovieDetailInfo> movieInfo;
 
-        // Supply index input as an argument.
-        Bundle args = new Bundle();
-        args.putInt("movieid", index);
-        f.setArguments(args);
-
-        return f;
-    }
-
-    public int getShownIndex() {
-        return getArguments().getInt("movieid", 0);
+    public DetailActivityFragment() {
     }
 
     @Override
@@ -78,84 +71,194 @@ public class DetailActivityFragment extends Fragment {
         releaseDate = (TextView) v.findViewById(R.id.releaseData);
         voteAverage = (TextView) v.findViewById(R.id.voteData);
         overView = (TextView) v.findViewById(R.id.synopsisContent);
-
         progrssBar = (ProgressBar) v.findViewById(R.id.progressBar);
         progrssBar.setVisibility(View.VISIBLE);
-
-/*
+        mid = (TextView) v.findViewById(R.id.movieID);
         in = getActivity().getIntent();
 
 
-             mForecast = in.getStringExtra("movieid");
-              ((TextView) v.findViewById(R.id.title))
-                      .setText(mForecast);
-
-*/
+        mForecast = in.getStringExtra("movieid");
+        ((TextView) v.findViewById(R.id.movieID))
+                .setText(mForecast);
+        Detail();
 
         return v;
 
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    Detail();
-    }
-
 
     public void Detail() {
 
-            requestData();
+  requestData();
+    /*    if (isConnecetd()) {
+         requestData("http://api.themoviedb.org/3/movie/"+ mForecast.toString()+"?api_key=8ab57b43e21f9bae201c7c686efee010");
+     }
+    */}
+/*
+    interface MovieInterface {
+
+       */
+/* @GET("/3/movie/{id}?api_key=8ab57b43e21f9bae201c7c686efee010")
+        void getMovie(@Path("id")String id ,Callback<MovieDetail> cb);*//*
+
+       @GET("/users/{username}")
+       void getUser(@Path("username") String username, Callback<MovieDetail> cb);
+
+
 
     }
+*/
+    protected boolean isConnecetd() {
 
-    public void identity(){
+        ConnectivityManager manageOnline = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manageOnline.getActiveNetworkInfo();
 
-        getShownIndex();
-    }
+        if (info != null && info.isConnected()) {
 
-
-    public interface MovieApi {
-
-        @GET("/3/movie/206647?api_key=API")
-
-        void getMovie(Callback<InfoMoview> cb);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void requestData()  {
 
-            RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).build();
-            MovieApi api = adapter.create(MovieApi.class);
-            api.getMovie(new Callback<InfoMoview>() {
+//       RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_MOVIE_LINK).build();
 
-                @Override
-                public void success(InfoMoview infoMoview, Response response) {
-                    progrssBar.setVisibility(View.INVISIBLE);
+        MovieInterface apiService =
+                retrofit.create(MovieInterface.class);
+       mForecast = in.getStringExtra("movieid");
+       Call<MovieDetail> call = apiService.getUser(mForecast);
+        call.enqueue(new Callback<MovieDetail>() {
 
-                    title.setText(infoMoview.getTitle().toString());
-                    releaseDate.setText(infoMoview.getRelease_date().toString());
-                    voteAverage.setText(infoMoview.getVote_average().toString());
-                    overView.setText(infoMoview.getOverview().toString());
+            @Override
+            public void onResponse(Response<MovieDetail> response, Retrofit retrofit) {
+                int statusCode = response.code();
+                MovieDetail user = response.body();
 
+                progrssBar.setVisibility(View.INVISIBLE);
 
-                    Picasso.with(getContext())
-                            .load(URL + infoMoview.getBackdrop_path())
-                            .into(backgroundImage);
-
-
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    String merror = error.getMessage();
-
-                }
+                title.setText(user.getTitle().toString());
+                releaseDate.setText(user.getRelease_date().toString());
+                voteAverage.setText(user.getVote_average().toString());
+                overView.setText(user.getOverview().toString());
 
 
-            });
+                Picasso.with(getContext())
+                        .load(URL + user.getBackdrop_path())
+                        .into(backgroundImage);
 
 
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                String merror = t.getMessage();
+
+            }
+        });
+/*
+        in.getMovie(new Callback<MovieDetail>() {
+            @Override
+            public void success(MovieDetail infoMoview, Response response) {
+                progrssBar.setVisibility(View.INVISIBLE);
+
+                title.setText(infoMoview.getTitle().toString());
+                releaseDate.setText(infoMoview.getRelease_date().toString());
+                voteAverage.setText(infoMoview.getVote_average().toString());
+                overView.setText(infoMoview.getOverview().toString());
+
+
+                Picasso.with(getContext())
+                        .load(URL + infoMoview.getBackdrop_path())
+                        .into(backgroundImage);
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                String merror = error.getMessage();
+
+            }
+        });
+*/
    }
+
+    protected void updated() {
+
+
+/*
+             releaseDate.setText(it.getRelease_date());
+                       voteAverage.setText(it.getVote_average());
+                     overView.setText(it.getOverview());
+*/
+
+         //}
+  //     }
+           // releaseDate.setText(md.getRelease_date().toString());
+            //          voteAverage.setText(md.getVote_average().toString());
+            //        overView.setText(md.getOverview().toString());
+
+
+            //      }
+/*
+        releaseDate.setText(infom.getRelease_date().toString());
+        voteAverage.setText(inform.getVote_average().toString());
+        overView.setText(infoMoview.getOverview().toString());
+*//*
+        }*/
+   //     title.setText(ino.getTitle());
+
+    }
+/*
+    public class MovieDetailInfo extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+updated();
+            if (movieInfo.size() == 0) {
+
+          //     bar.setVisibility(View.VISIBLE);
+            }
+            movieInfo.add(this);
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            String content = HttpManger.getData(params[0]);
+
+            return content;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            infom = MoviesJson.imageConversion(s);
+
+            updated();
+
+            movieInfo.remove(this);
+            if (movieInfo.size() == 0) {
+           //    bar.setVisibility(View.INVISIBLE);
+
+            }
+
+
+        }
+
+    }
+
+*/
+
+
+
 }
 
 

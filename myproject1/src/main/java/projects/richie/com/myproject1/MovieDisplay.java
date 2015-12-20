@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,17 +41,22 @@ public class MovieDisplay extends Fragment {
     private View rootView;
     private GridView gridView;
     private ProgressBar bar;
-    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=API";
+    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=8ab57b43e21f9bae201c7c686efee010";
 
-    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=API";
+    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010";
 
-    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=API";
+    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
 
     private TextView movieData;
     public List<InfoMoview> moviedetails;
     private List<MoviewGrid> grid;
     AndroidFlavorAdapter aapt;
+    private Toolbar tb;
+    boolean mDualPane;
+    int mCurCheckPosition = 0;
+
     public MovieDisplay() {
+
         setHasOptionsMenu(true);
     }
 
@@ -61,6 +67,13 @@ public class MovieDisplay extends Fragment {
 
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,27 +81,18 @@ public class MovieDisplay extends Fragment {
 
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
+        tb = (Toolbar) rootView.findViewById(R.id.toolbar);
         gridView = (GridView) rootView.findViewById(R.id.movieGrid);
+
         bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         bar.setVisibility(View.INVISIBLE);
         grid = new ArrayList<>();
         Display();
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String weatherItem = aapt.getItem(i);
-
-                Intent in = new Intent(getContext(),DetailActivity.class);
-                startActivityForResult(in,1);
-            }
-        });
-
-
         return rootView;
 
     }
+
 
 
     protected void updated() {
@@ -96,22 +100,20 @@ public class MovieDisplay extends Fragment {
         aapt = new AndroidFlavorAdapter(getActivity(),moviedetails);
         gridView.setAdapter(aapt);
 
-/*
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                InfoMoview im= aapt.getItem(i);
-                String weatherItem = im.getMovieID();
-                Intent d_Intent = new Intent(getActivity(),DetailActivity.class);
-                d_Intent.putExtra("movieid",weatherItem);
-                startActivity(d_Intent);
-//   Toast.makeText(getActivity(),"The id is "+ weatherItem,Toast.LENGTH_SHORT).show();
+                InfoMoview im = (InfoMoview) adapterView.getItemAtPosition(i);
+                if (im != null) {
+                    String weatherItem = im.getMovieID();
+                    Intent d_Intent = new Intent(getActivity(), DetailActivity.class);
+                    d_Intent.putExtra("movieid", weatherItem);
+                    startActivity(d_Intent);
 
-                startActivity(new Intent(getActivity(), DetailActivity.class));
-
+    //                Toast.makeText(getContext(), weatherItem, Toast.LENGTH_SHORT).show();
+                }
             }
         });
-*/
 
     }
 

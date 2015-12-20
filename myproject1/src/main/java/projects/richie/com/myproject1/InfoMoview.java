@@ -9,7 +9,7 @@ public class InfoMoview {
 
     @Expose
     public String detail_image;
-@Expose
+   @Expose
     public String detail_title;
 
     @Expose
@@ -19,8 +19,14 @@ public class InfoMoview {
      private String release_date;
 
     @Expose
+    private String backdrop_path;
+    @Expose
 
     private String vote_average;
+
+    @Expose
+
+    private String overview;
 
     public String getVote_average() {
         return vote_average;
@@ -30,9 +36,6 @@ public class InfoMoview {
         this.vote_average = vote_average;
     }
 
-    @Expose
-
-    private String overview;
 
     public String getRelease_date() {
         return release_date;
@@ -50,8 +53,7 @@ public class InfoMoview {
         this.overview = overview;
     }
 
-    @Expose
-    private String backdrop_path;
+
 
     public String getTitle() {
         return title;

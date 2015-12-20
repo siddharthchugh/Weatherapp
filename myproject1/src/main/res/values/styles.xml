@@ -6,7 +6,6 @@
 
 
     </style>
-<!--
     <style name="Widget.MyApp.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="theme">@style/ThemeOverlay.MyApp.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
@@ -19,7 +18,6 @@
     <style name="Toolbar_Theme">
         <item name="colorControlNormal">#ffcc11</item>
     </style>
--->
 
 
 
