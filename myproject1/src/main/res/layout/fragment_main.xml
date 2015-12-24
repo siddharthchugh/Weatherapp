@@ -14,18 +14,17 @@
         />
 -->
 
-
-
             <GridView
 
                 android:id="@+id/movieGrid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:columnWidth="40dp"
                 android:numColumns="2"
                 android:horizontalSpacing="5dp"
                 android:stretchMode="columnWidth"
-                android:gravity="center"
+                android:gravity="fill"
 
                 ></GridView>
 

@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class MovieDisplay extends Fragment {
     AndroidFlavorAdapter aapt;
     private Toolbar tb;
     boolean mDualPane;
+    private Spinner choose;
     int mCurCheckPosition = 0;
 
     public MovieDisplay() {
@@ -61,18 +63,7 @@ public class MovieDisplay extends Fragment {
     }
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-    }
-
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +73,7 @@ public class MovieDisplay extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         tb = (Toolbar) rootView.findViewById(R.id.toolbar);
+
         gridView = (GridView) rootView.findViewById(R.id.movieGrid);
 
         bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
@@ -92,8 +84,6 @@ public class MovieDisplay extends Fragment {
         return rootView;
 
     }
-
-
 
     protected void updated() {
 
@@ -110,8 +100,7 @@ public class MovieDisplay extends Fragment {
                     d_Intent.putExtra("movieid", weatherItem);
                     startActivity(d_Intent);
 
-    //                Toast.makeText(getContext(), weatherItem, Toast.LENGTH_SHORT).show();
-                }
+               }
             }
         });
 

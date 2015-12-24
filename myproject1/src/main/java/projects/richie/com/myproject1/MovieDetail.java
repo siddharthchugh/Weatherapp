@@ -1,14 +1,13 @@
 package projects.richie.com.myproject1;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Richie on 19-12-2015.
  */
 public class MovieDetail {
 
-    @SerializedName("title")
+
 
     private String title;
 
@@ -20,6 +19,8 @@ public class MovieDetail {
     @Expose
 
     private String vote_average;
+
+
 
     @Expose
 
