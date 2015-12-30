@@ -44,6 +44,7 @@ public class MoviesJson {
     }
 
 
+/*
     public static List<MovieDetail> imageConversion(String content) {
 
 
@@ -70,5 +71,6 @@ public class MoviesJson {
 
 
     }
+*/
 
 }

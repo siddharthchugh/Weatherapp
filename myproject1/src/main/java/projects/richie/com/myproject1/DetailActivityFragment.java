@@ -35,8 +35,8 @@ public class DetailActivityFragment extends Fragment{
     private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
     private static final String FORECAST_SHARE_HASHTA = " #PopMovie ";
     private String movieID;
-    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/movie/102899?api_key=8ab57b43e21f9bae201c7c686efee010";
-    final String URL = "http://image.tmdb.org/t/p/w342/";
+//    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/movie/102899?api_key=";
+    final String URL = "http://image.tmdb.org/t/p/original";
     private TextView title;
     private ImageView backgroundImage;
     private TextView releaseDate;
@@ -44,9 +44,9 @@ public class DetailActivityFragment extends Fragment{
     private TextView overView;
     private TextView tag;
     private Intent in;
-    private RatingBar movieRating;
+    private RatingBar movierate;
     private ProgressBar progrssBar;
-
+    private Float rt;
     private List<MovieDetailInfo> movieInfo;
     private float rate;
     private String movie_Title = null;
@@ -79,8 +79,8 @@ public class DetailActivityFragment extends Fragment{
         voteAverage = (TextView) v.findViewById(R.id.voteData);
         overView = (TextView) v.findViewById(R.id.synopsisContent);
         tag = (TextView) v.findViewById(R.id.movietag);
+        movierate = (RatingBar) v.findViewById(R.id.movie_ratingBar);
         progrssBar = (ProgressBar) v.findViewById(R.id.progressBar1);
-
         progrssBar.setVisibility(View.INVISIBLE);
         in = getActivity().getIntent();
         movieInfo = new ArrayList<>();
@@ -99,7 +99,7 @@ public class DetailActivityFragment extends Fragment{
             if (isConnecting()) {
                 if (in != null) {
                     movieID = in.getStringExtra("movieid");
-                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=8ab57b43e21f9bae201c7c686efee010");
+                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=");
                 }
             }
 
@@ -145,9 +145,16 @@ public class DetailActivityFragment extends Fragment{
             title.setText(movie_Title);
             tag.setText(movie_tag);
             releaseDate.setText(movie_Release);
+
             voteAverage.setText(movie_Rate);
+    //String rating = voteAverage.toString();
+            rt = Float.parseFloat(movie_Rate);
+
+            movierate.setRating(rt);
+
             overView.setText(movie_Overview);
-        } catch (JSONException e) {
+           // String rt = String.format(movie_Rate);
+            } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -223,13 +230,16 @@ RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).buil
 
 
             String content = HttpManger.getData(params[0]);
+
+            update(params[0]);
+
             return content;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            infom = MoviesJson.imageConversion(s);
+//            infom = MoviesJson.imageConversion(s);
 
             update(s);
 

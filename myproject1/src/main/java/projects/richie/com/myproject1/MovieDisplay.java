@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -27,6 +26,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -34,24 +34,26 @@ import java.util.List;
 public class MovieDisplay extends Fragment {
 
     private ListView forecastList;
-    ArrayAdapter<String> movieAdapter;
-    private AndroidFlavorAdapter flavorAdapter;
+
     int position = 0;
     private TextView vCount;
     int count;
     private View rootView;
     private GridView gridView;
     private ProgressBar bar;
-    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=";
 
-    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=";
 
-    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
+    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=";
 
+    private final String STATE_MOVIES="movie_list";
     private TextView movieData;
     public List<InfoMoview> moviedetails;
     private List<MoviewGrid> grid;
     AndroidFlavorAdapter aapt;
+    private ArrayList<InfoMoview> flavorList = new ArrayList<>();
+
     private Toolbar tb;
     boolean mDualPane;
     private Spinner choose;
@@ -106,6 +108,13 @@ public class MovieDisplay extends Fragment {
 
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList(STATE_MOVIES,flavorList);
+
+        super.onSaveInstanceState(outState);
+    }
 
     public void Display() {
 
@@ -198,6 +207,21 @@ public class MovieDisplay extends Fragment {
         int id = item.getItemId();
         switch (id) {
 
+            case R.id.action_sort:
+                startActivity(new Intent(getActivity(),SettingActivity.class));
+
+                if (isConnecetd()) {
+                    requestData(URL_POPULARMOVIE_LINK);
+
+                } else {
+                    Toast.makeText(getContext(), "Please connect to the network", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+
+
+                break;
 
             case R.id.action_popular:
                 if (isConnecetd()) {

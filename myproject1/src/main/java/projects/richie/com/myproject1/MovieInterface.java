@@ -10,7 +10,7 @@ public   interface MovieInterface {
 
 //        @GET("/3/movie/102899?api_key=8ab57b43e21f9bae201c7c686efee010")
 
-        @GET("/3/movie/{id}?api_key=8ab57b43e21f9bae201c7c686efee010")
+        @GET("/3/movie/{id}?api_key=")
 
         void getMovie(Callback<MovieDetail> cb);
 

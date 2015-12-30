@@ -24,7 +24,7 @@ public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
     Context con;
     private int id;
     InfoMoview in;
-    final String URL = "http://image.tmdb.org/t/p/w780/";
+    final String URL = "http://image.tmdb.org/t/p/w780";
     List<InfoMoview> info;
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
