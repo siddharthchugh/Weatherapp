@@ -44,7 +44,6 @@ public class SettingsActivity extends AppCompatActivity {
 */
 public class SettingActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
-    //private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=8ab57b43e21f9bae201c7c686efee010";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class SettingActivity extends PreferenceActivity
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
         // updated when the preference changes.
 
-       bindPreferenceSummaryToValue(findPreference(getString(R.string.movie_key_value)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.movie_key_value)));
 
 
         // TODO: Add preferences

@@ -15,4 +15,11 @@
     <item android:id="@+id/action_favorite" android:title="My Favorite"
         android:orderInCategory="102" app:showAsAction="never" />
 
+    <item
+        android:id="@+id/actionSearch"
+        android:title="Search"
+        android:icon="@drawable/ic_search_white"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+
 </menu>

@@ -108,7 +108,7 @@ public class DetailActivityFragment extends Fragment {
             if (isConnecting()) {
                 if (in != null) {
                     movieID = in.getStringExtra("movieid");
-                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=8ab57b43e21f9bae201c7c686efee010");
+                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=API");
                 }
             }
 
