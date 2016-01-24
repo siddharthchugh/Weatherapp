@@ -7,5 +7,10 @@
         app:showAsAction="always"
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
 
+    <item android:id="@+id/action_fav"
+        android:title="Favorite"
+        android:icon="@mipmap/ic_favorite_border"
+        app:showAsAction="always"
+/>
 
 </menu>

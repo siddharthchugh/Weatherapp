@@ -1,28 +1,19 @@
 package projects.richie.com.myproject1;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * Created by Richie on 19-12-2015.
  */
 public class MovieDetail {
 
 
-
     private String title;
 
-    @Expose
     private String release_date;
 
-    @Expose
     private String backdrop_path;
-    @Expose
 
     private String vote_average;
 
-
-
-    @Expose
 
     private String overview;
 

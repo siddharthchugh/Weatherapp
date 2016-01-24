@@ -3,12 +3,14 @@ package projects.richie.com.myproject1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,13 +43,11 @@ public class MovieDisplay extends Fragment {
     private View rootView;
     private GridView gridView;
     private ProgressBar bar;
-    private final String URL_MOVIE_LINK = "http://api.themoviedb.org/3/discover/movie?api_key=";
+    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010\n";
 
-    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=";
+    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
 
-    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=";
-
-    private final String STATE_MOVIES="movie_list";
+    private final String STATE_MOVIES = "movie_list";
     private TextView movieData;
     public List<InfoMoview> moviedetails;
     private List<MoviewGrid> grid;
@@ -65,31 +65,50 @@ public class MovieDisplay extends Fragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        tb = (Toolbar) rootView.findViewById(R.id.toolbar);
-
         gridView = (GridView) rootView.findViewById(R.id.movieGrid);
 
         bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         bar.setVisibility(View.INVISIBLE);
         grid = new ArrayList<>();
-        Display();
+        if (savedInstanceState == null) {
+            Display();
+        }
 
         return rootView;
 
     }
 
+    private String formatMoivieSelection(String url) {
+        // For presentation, assume the user doesn't care about tenths of a degree.
+
+        SharedPreferences pref_Movie_Selected = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String movieType = pref_Movie_Selected.getString(
+                getString(R.string.movie_key_value),
+                getString(R.string.highest));
+        Log.v("The type ", "Sorted :" + movieType);
+
+        if (movieType.equals(getString(R.string.popular))) {
+
+            requestData(URL_POPULARMOVIE_LINK);
+        } else if (!movieType.equals(R.string.highest)) {
+
+            requestData(URL_TOPRATEDMOVIE_LINK);
+
+        }
+
+
+        return movieType;
+    }
+
     protected void updated() {
 
-        aapt = new AndroidFlavorAdapter(getActivity(),moviedetails);
+        aapt = new AndroidFlavorAdapter(getActivity(), moviedetails);
         gridView.setAdapter(aapt);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -102,7 +121,7 @@ public class MovieDisplay extends Fragment {
                     d_Intent.putExtra("movieid", weatherItem);
                     startActivity(d_Intent);
 
-               }
+                }
             }
         });
 
@@ -110,20 +129,25 @@ public class MovieDisplay extends Fragment {
 
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(STATE_MOVIES,flavorList);
-
-        super.onSaveInstanceState(outState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
+
 
     public void Display() {
 
-        if (isConnecetd()) {
-            requestData(URL_MOVIE_LINK);
+        if (isConnection()) {
+            requestData(URL_POPULARMOVIE_LINK);
 
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        formatMoivieSelection(URL_TOPRATEDMOVIE_LINK);
+    }
 
     private void requestData(String url) {
 
@@ -133,18 +157,12 @@ public class MovieDisplay extends Fragment {
     }
 
 
-    protected boolean isConnecetd() {
+    protected boolean isConnection() {
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        ConnectivityManager manageOnline = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = manageOnline.getActiveNetworkInfo();
-
-        if (info != null && info.isConnected()) {
-
-            return true;
-        } else {
-            return false;
-        }
+        return cm.getActiveNetworkInfo() != null;
     }
+
 
     public class MoviewGrid extends AsyncTask<String, String, String> {
 
@@ -190,9 +208,6 @@ public class MovieDisplay extends Fragment {
     }
 
 
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -208,9 +223,9 @@ public class MovieDisplay extends Fragment {
         switch (id) {
 
             case R.id.action_sort:
-                startActivity(new Intent(getActivity(),SettingActivity.class));
+                startActivity(new Intent(getActivity(), SettingActivity.class));
 
-                if (isConnecetd()) {
+                if (isConnection()) {
                     requestData(URL_POPULARMOVIE_LINK);
 
                 } else {
@@ -219,12 +234,10 @@ public class MovieDisplay extends Fragment {
                 }
 
 
-
-
                 break;
 
             case R.id.action_popular:
-                if (isConnecetd()) {
+                if (isConnection()) {
                     requestData(URL_POPULARMOVIE_LINK);
 
                 } else {
@@ -236,7 +249,7 @@ public class MovieDisplay extends Fragment {
                 break;
 
             case R.id.action_highestrated:
-                if (isConnecetd()) {
+                if (isConnection()) {
                     requestData(URL_TOPRATEDMOVIE_LINK);
 
                 } else {
@@ -244,6 +257,11 @@ public class MovieDisplay extends Fragment {
 
                 }
 
+
+                break;
+
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
 
                 break;
 

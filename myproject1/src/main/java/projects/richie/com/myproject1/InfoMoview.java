@@ -1,12 +1,9 @@
 package projects.richie.com.myproject1;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by Richie on 22-10-2015.
  */
-public class InfoMoview implements Parcelable{
+public class InfoMoview {
 
 
 
@@ -57,33 +54,6 @@ public class InfoMoview implements Parcelable{
         this.id = id;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public InfoMoview(Parcel in){
-        movieImages = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
-        parcel.writeString(movieImages);
-    }
-
-    public final Parcelable.Creator<InfoMoview> CREATOR = new Parcelable.Creator<InfoMoview>() {
-        @Override
-        public InfoMoview createFromParcel(Parcel parcel) {
-            return new InfoMoview(parcel);
-        }
-
-        @Override
-        public InfoMoview[] newArray(int i) {
-            return new InfoMoview[i];
-        }
-
-    };
 
 
 /*

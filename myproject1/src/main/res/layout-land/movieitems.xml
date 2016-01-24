@@ -1,27 +1,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemlayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:id="@+id/itemlayout"
 
->
+    >
 
     <ImageView
         android:id="@+id/list_item_icon"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ic_movie"
-        android:layout_height="wrap_content"/>
+        android:src="@drawable/ic_movie" />
 
 
-     <TextView
-            android:id="@+id/list_item_movieID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#000"
-            />
+    <TextView
+        android:id="@+id/list_item_movieID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#000" />
 
 
 </LinearLayout>

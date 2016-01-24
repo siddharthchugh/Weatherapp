@@ -1,179 +1,182 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
-    tools:context=".DetailActivity"
+    android:background="@color/heading_color"
     android:scrollbars="vertical"
+    tools:context=".DetailActivity"
 
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_color"
-        >
+        android:layout_height="match_parent">
 
 
         <LinearLayout
             android:id="@+id/titlelayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:background="@color/white"
             android:elevation="3dp"
-            android:orientation="vertical"
-            android:background="#2196ff"
-            android:gravity="center_vertical|left"
-            >
+            android:orientation="vertical">
+
             <TextView
+                android:id="@+id/detailTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:id="@+id/detailTitle"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/heading_color"
+                android:textStyle="bold"
 
                 />
 
+
             <TextView
 
+                android:id="@+id/movietag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text=""
                 android:layout_margin="10dp"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:id="@+id/movietag" />
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/heading_color"
+                android:textSize="16sp" />
 
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="3dp"
             android:layout_below="@+id/titlelayout"
-            android:orientation="vertical"
-
             android:layout_marginTop="5dp"
-            android:id="@+id/relativeLayout">
+
+            android:elevation="3dp"
+            android:orientation="vertical">
 
 
             <ImageView
+                android:id="@+id/detail_bgImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/detail_bgImage"
-                android:src="@mipmap/ic_launcher"
-                android:layout_gravity="center_vertical"
-                />
+                android:gravity="center"
+                android:src="@drawable/ic_movie" />
 
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/detailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_bgImage"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/detail_bgImage">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_alignParentStart="true"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/release"
-                        android:textColor="@color/heading_color"
                         android:id="@+id/textView"
-                        android:textSize="20sp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_below="@+id/relativeLayout"
-                        android:layout_toLeftOf="@+id/progressBar"
-                        android:layout_toStartOf="@+id/progressBar" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/relativeLayout"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/progressBar"
+                        android:layout_toStartOf="@+id/progressBar"
+                        android:text="@string/release"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/detail_color"
-                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <TextView
                         android:id="@+id/releaseData"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="18dp"
-                        android:layout_below="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-
-
+                        android:layout_below="@+id/progressBar"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="10dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_alignParentEnd="true"
-                    >
+                    android:layout_marginLeft="30dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/vote"
-                        android:textColor="@color/heading_color"
                         android:id="@+id/textVie"
-                        android:textSize="20sp"
-                        android:layout_marginRight="12dp"
-                        android:layout_below="@+id/relativeLayout"
-                        android:layout_toLeftOf="@+id/progressBar"
-                        android:layout_toStartOf="@+id/progressBar" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/relativeLayout"
+                        android:layout_marginRight="12dp"
+                        android:layout_toLeftOf="@+id/progressBar"
+                        android:layout_toStartOf="@+id/progressBar"
+                        android:text="@string/vote"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/detail_color"
-                        android:textSize="16sp"
-                        android:id="@+id/voteData"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_below="@+id/progressBar"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
 
+                    <TextView
+                        android:id="@+id/voteData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/progressBar"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="10dp"
+
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <RatingBar
+                        android:id="@+id/movie_ratingBar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:numStars="10" />
 
 
                 </LinearLayout>
 
 
-
-            </RelativeLayout>
+            </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:scrollbars="vertical"
                 android:layout_below="@+id/detailLayout"
-                >
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:scrollbars="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/heading_color"
+                    android:layout_marginTop="10dp"
                     android:text="@string/overview"
-                    />
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/synopsisContent"
@@ -181,27 +184,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:padding="10dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/detail_color"
-                    />
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
-
-
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center" />
 
 
         </LinearLayout>
-
-
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar1"
-            android:layout_centerInParent="true"
-            />
-
 
 
     </RelativeLayout>
