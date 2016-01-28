@@ -20,7 +20,7 @@ public class MoviesJson {
         try {
             JSONObject ob = new JSONObject(content);
 
-            JSONArray ar = ob.getJSONArray("results");//new JSONArray(content);
+            JSONArray ar = ob.getJSONArray("results");
             List<InfoMoview> movieList = new ArrayList<>();
 
             for (int i = 0; i < ar.length(); i++) {
