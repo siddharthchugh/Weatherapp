@@ -67,24 +67,8 @@ public class DetailAdapter extends ArrayAdapter<InfoMoview> {
 
          ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
         Picasso.with(con)
-                .load(" http://image.tmdb.org/t/p/w154/"+in.getMovieImages())
+                .load(" http://image.tmdb.org/t/p/w154/"+in.movieImages)
                 .into(iconView);
-
-//        Picasso.with(con).load("http://image.tmdb.org/t/p/w500/&api_key=8ab57b43e21f9bae201c7c686efee010").into(iconView);
-
-
-
-
-/*
-        TextView versionNameView = (TextView) convertView.findViewById(R.id.list_item_version_name);
-        versionNameView.setText(in.getMoviewName());
-*/
-
-/*
-        TextView versionNumberView = (TextView) convertView.findViewById(R.id.list_item_versionnumber_textview);
-        versionNumberView.setText(in.getMovieID());
-
-*/
 
         movieLayout = (LinearLayout) convertView.findViewById(R.id.itemlayout);
         movieLayout.setOnClickListener(new View.OnClickListener() {

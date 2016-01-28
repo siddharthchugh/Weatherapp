@@ -10,7 +10,7 @@
     <string name="highest">highest Rated</string>
 
     <string name="detail">Detail Activity</string>
-
+<string name="retry">Retry</string>
     <string name="movie_key_value">sorting</string>
 
     <string name="Sort_Movie">Sort</string>
@@ -28,5 +28,6 @@
     <string name="release">Release Date</string>
     <string name="vote">Vote Average</string>
     <string name="title_activity_settting">User Settting</string>
+    <string name="title_activity_connect_again">ConnectAgainActivity</string>
 
 </resources>

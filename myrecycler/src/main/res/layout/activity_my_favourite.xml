@@ -1,9 +1,21 @@
+<!--
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
+    android:name="projects.richie.com.myproject1.MovieDisplay"
+    tools:layout="@layout/fragment_main" android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/customizetoolbar"
+
+        />
     <GridView
 
         android:id="@+id/movieGrid"
@@ -15,6 +27,7 @@
         android:horizontalSpacing="20dp"
         android:stretchMode="columnWidth"
         android:gravity="center|center_vertical"
+        android:layout_below="@+id/toolbar"
         ></GridView>
 
     <ProgressBar

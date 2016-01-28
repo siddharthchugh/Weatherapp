@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="projects.richie.com.myproject1" >
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
 
     <application
         android:allowBackup="true"
@@ -27,20 +29,11 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".MyFavouriteActivity"
-            android:label="@string/title_activity_my_favourite" >
-        </activity>
-        <activity
-            android:name=".MyFavoriteActivity"
-            android:label="@string/title_activity_my_favorite" >
-        </activity>
-        <activity
             android:name=".SettingActivity"
             android:label="@string/title_activity_settting" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-
         </activity>
     </application>
 

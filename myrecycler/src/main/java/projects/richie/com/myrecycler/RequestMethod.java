@@ -1,4 +1,4 @@
-package projects.richie.com.myproject1;
+package projects.richie.com.myrecycler;
 
 /**
  * Created by Richie on 17-05-2015.

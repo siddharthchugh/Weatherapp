@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,11 +29,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 /**
  * A placeholder fragment containing a simple view.
  */
 
-public class MovieDisplay extends Fragment {
+public class MovieDisplay extends Fragment  {
 
     private ListView forecastList;
 
@@ -46,20 +46,18 @@ public class MovieDisplay extends Fragment {
     private static final int SPAN_COUNT = 2;
 
     private ProgressBar bar;
-    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=API";
+    private final String URL_TOPRATEDMOVIE_LINK = "http://api.themoviedb.org/3/movie/top_rated?api_key=8ab57b43e21f9bae201c7c686efee010";
 
-    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=API";
-
+    private final String URL_POPULARMOVIE_LINK = "http://api.themoviedb.org/3/movie/popular?api_key=8ab57b43e21f9bae201c7c686efee010";
     private final String STATE_MOVIES = "movie_list";
     private TextView movieData;
     public List<InfoMoview> moviedetails;
     private List<MoviewGrid> grid;
     AndroidFlavorAdapter aapt;
-    private ArrayList<InfoMoview> flavorList = new ArrayList<>();
+    private ArrayList<InfoMoview> movieList = new ArrayList<>();
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
 
-    private Toolbar tb;
     boolean mDualPane;
     private Spinner choose;
     int mCurCheckPosition = 0;
@@ -75,9 +73,8 @@ public class MovieDisplay extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
         gridView = (GridView) rootView.findViewById(R.id.movieGrid);
-//        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
         bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         bar.setVisibility(View.INVISIBLE);
@@ -91,7 +88,6 @@ public class MovieDisplay extends Fragment {
     }
 
     private String formatMoivieSelection(String url) {
-        // For presentation, assume the user doesn't care about tenths of a degree.
 
         SharedPreferences pref_Movie_Selected = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String movieType = pref_Movie_Selected.getString(
@@ -114,26 +110,6 @@ public class MovieDisplay extends Fragment {
 
     protected void updated() {
 
-        /*aapt = new AndroidFlavorAdapter(getActivity(),moviedetails);
-
-        mRecyclerView.setAdapter(aapt);
-        mLayoutManager = new GridLayoutManager(getActivity(),SPAN_COUNT);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-*/
-/*
-        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InfoMoview im = (InfoMoview) adapterView.getItemAtPosition(i);
-                if (im != null) {
-                    String weatherItem = im.getMovieID();
-                    Intent d_Intent = new Intent(getActivity(), DetailActivity.class);
-                    d_Intent.putExtra("movieid", weatherItem);
-                    startActivity(d_Intent);
-
-                }
-        });
-*/
         aapt = new AndroidFlavorAdapter(getActivity(), moviedetails);
         gridView.setAdapter(aapt);
 
@@ -154,11 +130,18 @@ public class MovieDisplay extends Fragment {
     }
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+//        outState.putParcelableArrayList("MovieDetail",movieList);
+        super.onSaveInstanceState(outState);
+    }
 
     public void Display() {
 
@@ -187,6 +170,8 @@ public class MovieDisplay extends Fragment {
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
+
+
     }
 
 
@@ -219,8 +204,6 @@ public class MovieDisplay extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            moviedetails = MoviesJson.parseFeed(s);
-            updated();
 
             grid.remove(this);
             if (grid.size() == 0) {
@@ -228,33 +211,25 @@ public class MovieDisplay extends Fragment {
 
             }
 
-
+            if(s!=null) {
+              moviedetails = MoviesJson.parseFeed(s);
+                updated();
+            }
+            else {
+                Toast.makeText(getContext(), "Please connect to Intenet ", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
-      /* MenuItem searchItem = menu.findItem(R.id.actionSearch);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });*/
     }
 
-    @Override
+        @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
@@ -263,13 +238,6 @@ public class MovieDisplay extends Fragment {
             case R.id.action_sort:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
 
-                if (isConnection()) {
-                    requestData(URL_POPULARMOVIE_LINK);
-
-                } else {
-                    Toast.makeText(getContext(), "Please connect to the network", Toast.LENGTH_SHORT).show();
-
-                }
 
 
                 break;
@@ -298,10 +266,6 @@ public class MovieDisplay extends Fragment {
 
                 break;
 
-            case R.id.action_settings:
-                startActivity(new Intent(getActivity(), SettingActivity.class));
-
-                break;
 
         }
 
@@ -310,6 +274,5 @@ public class MovieDisplay extends Fragment {
 
     }
 }
-
 
 

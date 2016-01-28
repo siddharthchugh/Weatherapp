@@ -7,7 +7,10 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,6 +64,8 @@ public class DetailActivityFragment extends Fragment {
     private String movie_tag = null;
     private Toolbar tb;
 
+    private static final String MOVIE_SHARE_HASHTAG = " #Popular Movie ";
+    private String mForecast;
 
     public DetailActivityFragment() {
     }
@@ -79,9 +84,7 @@ public class DetailActivityFragment extends Fragment {
 
 
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
-        tb = (Toolbar) v.findViewById(R.id.toolbar);
-
-        title = (TextView) v.findViewById(R.id.detailTitle);
+    title = (TextView) v.findViewById(R.id.detailTitle);
 
         backgroundImage = (ImageView) v.findViewById(R.id.detail_bgImage);
         releaseDate = (TextView) v.findViewById(R.id.releaseData);
@@ -94,7 +97,6 @@ public class DetailActivityFragment extends Fragment {
         in = getActivity().getIntent();
         movieInfo = new ArrayList<>();
 
-       //favoriteAdded();
         Detail();
 
         return v;
@@ -108,7 +110,7 @@ public class DetailActivityFragment extends Fragment {
             if (isConnecting()) {
                 if (in != null) {
                     movieID = in.getStringExtra("movieid");
-                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=API");
+                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=8ab57b43e21f9bae201c7c686efee010");
                 }
             }
 
@@ -118,17 +120,13 @@ public class DetailActivityFragment extends Fragment {
     }
 
     public boolean isConnecting() {
-        ConnectivityManager connectivity = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null) {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
-                    }
-
-        }
-        return false;
+            ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
 
@@ -172,27 +170,6 @@ public class DetailActivityFragment extends Fragment {
         Detail();
 
     }
-
-    /*
-    public void favoriteAdded( ){
-
-        if(flag==1){
-
-            flag=1;
-
- favorite_Movie.setImageResource(R.mipmap.ic_favorite_white);
-        }
-        else
-        {
-            flag=0;
-            favorite_Movie.setImageResource(R.mipmap.ic_favorite_border);
-
-        }
-
-
-    }
-*/
-
 
 
     private void requestData(String url) {
@@ -245,6 +222,16 @@ RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).buil
     }
 
 
+    private Intent createShareForecastIntent(){
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, mForecast + MOVIE_SHARE_HASHTAG);
+
+
+        return shareIntent;
+    }
 
 
 
@@ -271,16 +258,7 @@ RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).buil
 
             String content = HttpManger.getData(params[0]);
 
-try{
-    Thread.sleep(100);
-
     update(params[0]);
-
-}catch(Exception e){
-
-    e.printStackTrace();
-
-}
 
             return content;
         }
@@ -308,28 +286,24 @@ try{
         // Do something that differs the Activity's menu here
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.detail_fragment, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+
+        // Get the provider and hold onto it to set/change the share intent.
+        ShareActionProvider mShareActionProvider =
+                (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+        // Attach an intent to this ShareActionProvider.  You can update this at any time,
+        // like when the user selects a new piece of data they might like to share.
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(createShareForecastIntent());
+        } else {
+            Log.d(LOG_TAG, "Share Action Provider is null?");
+        }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_fav:
-                if(flag==1){
-
-                    flag=1;
-
-                    favorite_Movie.setImageResource(R.mipmap.ic_favorite_white);
-                }
-                else
-                {
-                    flag=0;
-                    favorite_Movie.setImageResource(R.mipmap.ic_favorite_border);
-
-                }
-                return false;
-            default:
-                break;
-        }
 
         return false;
     }}

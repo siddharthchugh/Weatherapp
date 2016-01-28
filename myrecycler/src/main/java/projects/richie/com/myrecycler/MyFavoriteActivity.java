@@ -1,24 +1,26 @@
-package projects.richie.com.myproject1;
+package projects.richie.com.myrecycler;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-public class MyFavouriteActivity extends AppCompatActivity {
+public class MyFavoriteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_favourite);
+        setContentView(R.layout.activity_my_favorite);
     }
 
+
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_my_favourite, menu);
+        getMenuInflater().inflate(R.menu.menu_my_favorite, menu);
         return true;
     }
+*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
