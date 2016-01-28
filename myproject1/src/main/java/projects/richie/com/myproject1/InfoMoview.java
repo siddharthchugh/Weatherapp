@@ -1,12 +1,9 @@
 package projects.richie.com.myproject1;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by Richie on 22-10-2015.
  */
-public class InfoMoview  implements Parcelable{
+public class InfoMoview {
 
 
 
@@ -59,6 +56,7 @@ public int getPage() {
         this.id = id;
     }
 
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -99,6 +97,7 @@ public int getPage() {
         }
 
     };
+*/
 
 
 

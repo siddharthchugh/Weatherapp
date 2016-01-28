@@ -179,7 +179,7 @@ public class DetailActivityFragment extends Fragment {
 
         movieID = in.getStringExtra("movieid");
 
-        info.execute("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=8ab57b43e21f9bae201c7c686efee010");
+        info.execute("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=API");
 
 /*
 RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).build();
