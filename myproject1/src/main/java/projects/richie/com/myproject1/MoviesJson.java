@@ -44,33 +44,5 @@ public class MoviesJson {
     }
 
 
-/*
-    public static List<MovieDetail> imageConversion(String content) {
-
-
-
-        try {
-             JSONObject ob = new JSONObject(content);
-            List<MovieDetail> movieList = new ArrayList<>();
-            MovieDetail list = new MovieDetail();
-                 list.setTitle(ob.getString("title"));
-               list.setBackdrop_path(ob.getString("backdrop_path"));
-            list.setRelease_date(ob.getString("release_date"));
-            list.setVote_average(ob.getString("vote_average"));
-            list.setOverview(ob.getString("synopsis"));
-
-            movieList.add(list);
-
-
-            //}
-            return movieList;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-
-    }
-*/
 
 }

@@ -1,18 +1,12 @@
 package projects.richie.com.myproject1;
 
-/**
- * Created by Richie on 17-05-2015.
- */
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Richie on 28-04-2015.
- */
+
 public class HttpManger {
 
     public static String getData(String url) {

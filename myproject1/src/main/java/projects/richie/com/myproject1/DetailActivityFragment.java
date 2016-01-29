@@ -38,7 +38,7 @@ public class DetailActivityFragment extends Fragment {
     private TextView mid;
     private int id;
     private List<MovieDetail> infom;
-  private ImageView  favorite_Movie;
+    private ImageView favorite_Movie;
     private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
     private static final String MOVIE_SHARE_HASHTA = " #PopMovie ";
     private String movieID;
@@ -53,7 +53,7 @@ public class DetailActivityFragment extends Fragment {
     private RatingBar movierate;
     private ProgressBar progrssBar;
     private Float rt;
-    private  int flag=0;
+    private int flag = 0;
     private List<MovieDetailInfo> movieInfo;
     private float rate;
     private String movie_Title = null;
@@ -84,7 +84,7 @@ public class DetailActivityFragment extends Fragment {
 
 
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
-    title = (TextView) v.findViewById(R.id.detailTitle);
+        title = (TextView) v.findViewById(R.id.detailTitle);
 
         backgroundImage = (ImageView) v.findViewById(R.id.detail_bgImage);
         releaseDate = (TextView) v.findViewById(R.id.releaseData);
@@ -110,7 +110,7 @@ public class DetailActivityFragment extends Fragment {
             if (isConnecting()) {
                 if (in != null) {
                     movieID = in.getStringExtra("movieid");
-                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=8ab57b43e21f9bae201c7c686efee010");
+                    requestData("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=API");
                 }
             }
 
@@ -120,13 +120,13 @@ public class DetailActivityFragment extends Fragment {
     }
 
     public boolean isConnecting() {
-            ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                return true;
-            } else {
-                return false;
-            }
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -181,48 +181,11 @@ public class DetailActivityFragment extends Fragment {
 
         info.execute("http://api.themoviedb.org/3/movie/" + movieID + "?api_key=API");
 
-/*
-RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).build();
-            // Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_MOVIE_LINK).build();
-
-            MovieInterface apiService =
-                    adapter.create(MovieInterface.class);
-            movieID = in.getStringExtra("movieid");
-
-            apiService.getMovie(new Callback<MovieDetail>() {
-
-                @Override
-                public void success(final MovieDetail user, Response response) {
-
-                    progrssBar.setVisibility(View.INVISIBLE);
-
-                    title.setText(user.getTitle().toString());
-                    releaseDate.setText(user.getRelease_date().toString());
-                    voteAverage.setText(user.getVote_average());
-                    overView.setText(user.getOverview().toString());
-
-                    Picasso.with(getContext())
-                            .load(URL + user.getBackdrop_path())
-                            .into(backgroundImage);
-                }
-
-
-                @Override
-                public void failure(RetrofitError error) {
-                    String merror = error.getMessage();
-
-                }
-
-            });
-
-
-*/
-
 
     }
 
 
-    private Intent createShareForecastIntent(){
+    private Intent createShareForecastIntent() {
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
@@ -232,9 +195,6 @@ RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).buil
 
         return shareIntent;
     }
-
-
-
 
 
     public class MovieDetailInfo extends AsyncTask<String, String, String> {
@@ -255,10 +215,9 @@ RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).buil
         protected String doInBackground(String... params) {
 
 
-
             String content = HttpManger.getData(params[0]);
 
-    update(params[0]);
+            update(params[0]);
 
             return content;
         }
@@ -266,7 +225,6 @@ RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).buil
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-//            infom = MoviesJson.imageConversion(s);
 
             update(s);
 
@@ -281,32 +239,7 @@ RestAdapter adapter = new RestAdapter.Builder().setEndpoint(URL_MOVIE_LINK).buil
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Do something that differs the Activity's menu here
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.detail_fragment, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_share);
-
-        // Get the provider and hold onto it to set/change the share intent.
-        ShareActionProvider mShareActionProvider =
-                (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
-
-        // Attach an intent to this ShareActionProvider.  You can update this at any time,
-        // like when the user selects a new piece of data they might like to share.
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(createShareForecastIntent());
-        } else {
-            Log.d(LOG_TAG, "Share Action Provider is null?");
-        }
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return false;
-    }}
+}
 
 
 

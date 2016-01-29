@@ -1,4 +1,4 @@
-package projects.richie.com.myproject1;
+package projects.richie.com.myproject1.ManageAdapter;
 
 
 import android.app.Activity;
@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import projects.richie.com.myproject1.InfoMoview;
+import projects.richie.com.myproject1.R;
 
 public class AndroidFlavorAdapter extends ArrayAdapter<InfoMoview> {
     private static final String LOG_TAG = AndroidFlavorAdapter.class.getSimpleName();

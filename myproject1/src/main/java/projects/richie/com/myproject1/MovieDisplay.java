@@ -28,6 +28,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import projects.richie.com.myproject1.ManageAdapter.AndroidFlavorAdapter;
 
 
 /**
@@ -87,6 +88,7 @@ public class MovieDisplay extends Fragment  {
 
     }
 
+
     private String formatMoivieSelection(String url) {
 
         SharedPreferences pref_Movie_Selected = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -129,19 +131,6 @@ public class MovieDisplay extends Fragment  {
 
     }
 
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-//        outState.putParcelableArrayList("MovieDetail",movieList);
-        super.onSaveInstanceState(outState);
-    }
 
     public void Display() {
 
