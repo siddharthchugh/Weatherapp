@@ -132,6 +132,8 @@ public class MovieDisplay extends Fragment  {
     }
 
 
+
+
     public void Display() {
 
         if (isConnection()) {
