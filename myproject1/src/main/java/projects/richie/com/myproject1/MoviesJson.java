@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Richie on 01-11-2015.
  */
-public class MoviesJson {
+public class MoviesJson{
 
 
     public static List<InfoMoview> parseFeed(String content) {

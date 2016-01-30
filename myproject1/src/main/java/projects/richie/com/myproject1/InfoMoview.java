@@ -1,9 +1,12 @@
 package projects.richie.com.myproject1;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Richie on 22-10-2015.
  */
-public class InfoMoview{
+public class InfoMoview implements Parcelable{
 
 
     public String getMovieID() {
@@ -45,4 +48,13 @@ public class InfoMoview{
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+    }
 }

@@ -131,9 +131,11 @@ public class DetailActivityFragment extends Fragment {
 
             movie_Title = userObject.getString("original_title");
             movie_tag = userObject.getString("tagline");
+
             Picasso.with(getContext())
                     .load(URL + userObject.getString("backdrop_path"))
                     .into(backgroundImage);
+
             movie_Release = userObject.getString("release_date");
             movie_Rate = userObject.getString("vote_average");
             movie_Overview = userObject.getString("overview");
@@ -219,6 +221,7 @@ public class DetailActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+//           infom = MoviesJson.imageConversion(s);
 
             update(s);
 
@@ -232,7 +235,6 @@ public class DetailActivityFragment extends Fragment {
         }
 
     }
-
 }
 
 

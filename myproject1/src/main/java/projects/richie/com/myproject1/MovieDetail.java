@@ -1,9 +1,12 @@
 package projects.richie.com.myproject1;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Richie on 19-12-2015.
  */
-public class MovieDetail {
+public class MovieDetail implements Parcelable{
 
 
     private String title;
@@ -56,4 +59,45 @@ public class MovieDetail {
     public void setOverview(String overview) {
         this.overview = overview;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(overview);
+
+    }
+
+
+
+    private MovieDetail(Parcel in){
+        title = in.readString();
+        overview = in.readString();
+    }
+
+
+    public MovieDetail(String m_name, String id){
+
+        this.title= id;
+        this.overview= m_name;
+    }
+    public final Creator<MovieDetail> CREATOR = new Creator<MovieDetail>() {
+        @Override
+        public MovieDetail createFromParcel(Parcel parcel) {
+            return new MovieDetail(parcel);
+        }
+
+        @Override
+        public MovieDetail[] newArray(int i) {
+            return new MovieDetail[i];
+        }
+
+    };
+
+
 }

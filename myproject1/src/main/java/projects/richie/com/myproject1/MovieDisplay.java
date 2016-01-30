@@ -68,7 +68,12 @@ public class MovieDisplay extends Fragment  {
         setHasOptionsMenu(true);
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!isConnection()) {updated();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,10 +85,8 @@ public class MovieDisplay extends Fragment  {
         bar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         bar.setVisibility(View.INVISIBLE);
         grid = new ArrayList<>();
-        if (savedInstanceState == null) {
-            Display();
-        }
 
+Display();
         return rootView;
 
     }
@@ -134,6 +137,13 @@ public class MovieDisplay extends Fragment  {
 
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+       outState.putParcelableArrayList("MovieDetail",movieList);
+        super.onSaveInstanceState(outState);
+    }
+
+
     public void Display() {
 
         if (isConnection()) {
@@ -142,10 +152,21 @@ public class MovieDisplay extends Fragment  {
         }
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState == null || !savedInstanceState.containsKey("MovieDetail")){
+            movieList = new ArrayList<>();
+        } else {
+            movieList = savedInstanceState.getParcelableArrayList("MovieDetail");
+        }
+
+    }
 
     @Override
     public void onResume() {
         super.onResume();
+
         formatMoivieSelection(URL_TOPRATEDMOVIE_LINK);
     }
 
